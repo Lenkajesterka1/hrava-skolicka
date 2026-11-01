@@ -27,6 +27,44 @@ body, body * { text-transform: uppercase !important; }
 .nature-answer img{height:170px!important;object-fit:cover}
 @media(max-width:700px){.nature-intro{grid-template-columns:1fr}.nature-card img{height:260px}.nature-answer img{height:145px!important}}
 
+
+/* LISTOVACÍ PREZENTACE ROZMANITOST PŘÍRODY */
+.nature-deck{max-width:1400px;margin:0 auto;padding:16px 20px 30px;color:var(--navy)}
+.nature-progress{display:flex;align-items:center;gap:16px;margin:0 0 12px;font-size:1.2rem;font-weight:1000}
+.nature-progress>div{height:12px;flex:1;background:#dcebe5;border-radius:20px;overflow:hidden}.nature-progress i{display:block;height:100%;background:#248b75;border-radius:20px;transition:width .2s ease}
+.nature-slide{min-height:min(70vh,760px);padding:clamp(20px,3vw,38px);background:#fff;border:4px solid #b6e2cf;border-radius:30px;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center}
+.nature-slide-title{margin:0 0 22px;text-align:center;font-size:clamp(2.25rem,4.2vw,3.6rem);line-height:1.1;color:#174e3f}
+.nature-slide-layout{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(20px,3vw,42px);align-items:center;width:100%}
+.nature-slide-copy{display:flex;flex-direction:column;gap:14px}
+.nature-slide-text{font-size:clamp(1.5rem,2.3vw,2rem);font-weight:900;text-align:center;line-height:1.42;margin:10px auto 26px;max-width:1000px}
+.nature-slide-photo img{display:block;width:100%;height:min(54vh,540px);min-height:280px;object-fit:contain;border-radius:22px;background:#f2f6f3}
+.nature-facts{display:grid;gap:12px}
+.nature-facts>div{padding:16px 18px;background:#eff8f2;border-left:8px solid #52b69a;border-radius:14px;display:grid;gap:7px;font-size:clamp(1.3rem,1.8vw,1.65rem);line-height:1.4}
+.nature-facts strong{color:#1d684f;font-size:.92em}
+.nature-slide-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%}
+.nature-slide-gallery.nsg-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.nature-slide-gallery figure{margin:0;background:#f4f8f5;border:3px solid #d3e9dc;border-radius:20px;overflow:hidden;text-align:center}
+.nature-slide-gallery img{display:block;width:100%;height:clamp(220px,34vh,400px);object-fit:contain;background:#f2f6f3}
+.nature-slide-gallery figcaption{padding:14px 10px;font-size:clamp(1.3rem,1.8vw,1.6rem);font-weight:1000}
+.nature-slide-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.nature-option{min-height:110px;padding:12px;border:4px solid #d8ebef;border-radius:20px;background:#fff;color:var(--navy);font-family:inherit;font-size:clamp(1.25rem,1.8vw,1.65rem);font-weight:1000;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.nature-option img{width:100%;height:clamp(180px,24vh,250px);object-fit:contain;background:#f2f6f3;border-radius:14px}
+.nature-option:hover,.nature-option:focus-visible{outline:4px solid #26734d;outline-offset:2px}
+.nature-option.nature-correct{border-color:#55b85b;background:#ebfaeb}
+.nature-option.nature-wrong{border-color:#e65a55;background:#fff0ef}
+.nature-feedback{min-height:1.5em;margin:14px 0 0;text-align:center;font-size:clamp(1.4rem,2.3vw,1.9rem);font-weight:1000;color:#a34740}
+.nature-feedback.is-correct{color:#26734d}
+.nature-cover{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:center}
+.nature-cover h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.1;color:#174e3f}
+.nature-cover p{font-size:clamp(1.25rem,2.2vw,1.8rem);font-weight:900;line-height:1.4}
+.nature-cover .nature-tag{color:#248b75;letter-spacing:.08em}
+.nature-cover img{width:100%;height:min(58vh,600px);object-fit:contain;background:#f2f6f3;border-radius:24px}
+.nature-controls{display:flex;justify-content:space-between;gap:12px;margin-top:16px}
+.nature-nav{min-height:68px;border:0;border-radius:16px;padding:18px 26px;background:#216b80;color:#fff;font-size:clamp(1.15rem,1.6vw,1.4rem);font-weight:1000;cursor:pointer}
+.nature-nav:disabled{opacity:.45;cursor:default}
+.nature-next{background:#248b75}
+@media(max-width:760px){.nature-slide{min-height:0}.nature-slide-layout,.nature-cover{grid-template-columns:1fr}.nature-slide-gallery,.nature-slide-gallery.nsg-4{grid-template-columns:repeat(2,minmax(0,1fr))}.nature-slide-gallery img{height:210px}.nature-slide-photo img{height:320px}.nature-controls{flex-wrap:wrap}.nature-nav{flex:1}.nature-controls #natureHome{flex-basis:100%}}
+
 </style></head><body><header class="topbar"><button id="homeBtn" class="icon-btn" aria-label="DOMŮ">⌂</button><div class="brand"><span class="brand-sun">☀</span><span>ČLOVĚK A JEHO SVĚT</span></div></header><main id="app" tabindex="-1"></main><div id="toast" role="status" aria-live="polite"></div><footer class="school-back"><a href="index.html">← ZPĚT DO HRAVÉ ŠKOLIČKY</a></footer><script>
 const A='';
 const photoMap={
@@ -120,79 +158,54 @@ function renderChapter(id){if(id===8){renderNatureChapter();return}if(id===6){op
  app.innerHTML=shell(c,s,t);wire(c);app.querySelectorAll('.light').forEach(b=>b.onclick=()=>{const ok=b.dataset.ok==='1';b.classList.add('on');message(ok?'ZELENÁ – MŮŽEME JÍT!':'ČERVENÁ – ČEKÁME.',ok)});let expected=1;app.querySelectorAll('.seq-card').forEach(b=>b.onclick=()=>{if(+b.dataset.order===expected){b.classList.add('picked');b.querySelector('.badge').textContent=expected++;message(expected===5?'CELÝ DEN JE SPRÁVNĚ!':'SPRÁVNĚ, CO JE DÁL?')}else message('CO DĚLÁME NEJDŘÍVE?',false)});
 }
 
-function natureCard(file,title,text,alt=title){return `<article class="nature-card">${photo(file,alt)}<div class="nature-copy"><h3>${title}</h3><p>${text}</p></div></article>`}
-function natureSection(title,cards){return `<h2 class="nature-section-title">${title}</h2><div class="nature-grid">${cards.join('')}</div>`}
-function natureChoice(file,label,ok){return `<button class="choice nature-answer" data-ok="${ok?'1':'0'}">${file?photo(file,label):''}<span>${label}</span></button>`}
-function natureQuestion(title,instruction,choices){return `<div class="nature-task-block"><h2>${title}</h2><p>${instruction}</p><div class="choices">${choices.join('')}</div></div>`}
 function renderNatureChapter(){
- const c=chapters.find(x=>x.id===8);
- let s=`<div class="nature-intro"><div><h2>POČASÍ, LES A ZVÍŘATA</h2><p>DÍVEJ SE NA FOTOGRAFIE. POZORUJ. UKAZUJ. VYBER SI ÚKOL.</p></div>${photo('forest_autumn.jpg','PODZIMNÍ LES')}</div>`;
- s+=natureSection('PODZIMNÍ POČASÍ',[
-  natureCard('weather_sun.jpg','SLUNCE','SLUNCE SVÍTÍ A HŘEJE.'),
-  natureCard('weather_rain.jpg','DÉŠŤ','Z OBLOHY PADAJÍ KAPKY DEŠTĚ.'),
-  natureCard('weather_wind.jpg','VÍTR','VÍTR HÝBE VĚTVEMI A LISTY.'),
-  natureCard('weather_fog.jpg','MLHA','MLHA ZAKRÝVÁ VZDÁLENÉ MÍSTO.')
- ]);
- s+=natureSection('LES BĚHEM ROKU',[natureCard('forest_year.jpg','JARO, LÉTO, PODZIM A ZIMA','NA JAŘE ROSTOU LISTY. V LÉTĚ JE LES ZELENÝ. NA PODZIM LISTÍ MĚNÍ BARVU. V ZIMĚ STROMY ODPOČÍVAJÍ.')]);
- s+=natureSection('POZNÁVÁME STROMY',[
-  natureCard('oak.jpg','DUB','DUB MÁ LALOČNATÉ LISTY. JEHO PLODEM JE ŽALUD.'),
-  natureCard('beech.jpg','BUK','BUK MÁ HLADKÉ LISTY. JEHO PLODEM JE BUKVICE.'),
-  natureCard('birch.jpg','BŘÍZA','BŘÍZU POZNÁME PODLE BÍLÉ KŮRY A DROBNÝCH LISTŮ.'),
-  natureCard('spruce.jpg','SMRK','SMRK MÁ KRÁTKÉ PICHLAVÉ JEHLIČKY. ŠIŠKY VISÍ DOLŮ.')
- ]);
- const animals=[
-  ['squirrel.jpg','VEVERKA','ŽIVÍ SE SEMÍNKY, OŘECHY A HOUBAMI. ŽIJE NA STROMECH V LESE, PARKU I ZAHRADĚ. ZÁSOBUJE SE POTRAVOU. ZIMNÍ SPÁNEK NEMÁ.'],
-  ['hedgehog.jpg','JEŽEK','ŽIVÍ SE HMYZEM, ŽÍŽALAMI A PLŽI. ŽIJE V KŘOVINÁCH A ZAHRADÁCH. V SUCHÉM ÚKRYTU PŘEZIMUJE ZIMNÍM SPÁNKEM.'],
-  ['deer.jpg','JELEN','ŽIVÍ SE TRÁVOU, BYLINAMI, LISTY A VÝHONKY. ŽIJE V LESE A NA LESNÍCH LOUKÁCH. V ZIMĚ HLEDÁ TRÁVU A VÝHONKY.'],
-  ['roe.jpg','SRNA','ŽIVÍ SE BYLINAMI, TRÁVOU A MLADÝMI VÝHONKY. ŽIJE V LESE I U POLÍ A LUK. NA PODZIM JÍ ZHOUSTNE SRST.'],
-  ['boar.jpg','DIVOKÉ PRASE','ŽIVÍ SE KOŘÍNKY, ŽALUDY, PLODY I HMYZEM. ŽIJE V LESE A KŘOVINÁCH. ZŮSTÁVÁ AKTIVNÍ A MÁ HUSTŠÍ SRST.'],
-  ['fox.jpg','LIŠKA','ŽIVÍ SE MYŠMI, DROBNÝMI ZVÍŘATY A PLODY. ŽIJE V LESE, NA POLI I U LIDSKÝCH SÍDEL. V ZIMĚ HLEDÁ POTRAVU.'],
-  ['hare.jpg','ZAJÍC','ŽIVÍ SE BYLINAMI A TRÁVOU. V ZIMĚ HLOUŽE I VĚTVIČKY. ŽIJE NA LOUKÁCH A POLÍCH. ZŮSTÁVÁ VENKU.'],
-  ['rabbit.jpg','KRÁLÍK','ŽIVÍ SE TRÁVOU, BYLINAMI A LISTY. V ZIMĚ I KŮROU. ŽIJE V NOŘE, KDE SE UKRÝVÁ PŘED CHLADEM.']
+ const slides=[
+  {title:'ROZMANITOST PŘÍRODY',tag:'PODZIMNÍ PŘÍRODA',image:'forest_autumn.jpg',text:'POČASÍ • LES • ZVÍŘATA • PÉČE O PŘÍRODU',cover:true},
+  {title:'PODZIMNÍ POČASÍ',text:'PODÍVEJ SE NA ČTYŘI FOTOGRAFIE POČASÍ.',gallery:[['weather_sun.jpg','SLUNCE'],['weather_rain.jpg','DÉŠŤ'],['weather_wind.jpg','VÍTR'],['weather_fog.jpg','MLHA']]},
+  {title:'LES BĚHEM ROKU',image:'forest_year.jpg',text:'NA JAŘE ROSTOU LISTY. V LÉTĚ JE LES ZELENÝ. NA PODZIM LISTÍ MĚNÍ BARVU. V ZIMĚ STROMY ODPOČÍVAJÍ.'},
+  {title:'DUB',image:'oak.jpg',facts:[['LIST','LALOČNATÝ LIST'],['PLOD','ŽALUD'],['ZVÍŘATA','ŽALUDY JEDÍ NAPŘÍKLAD DIVOKÁ PRASATA.']]},
+  {title:'BUK',image:'beech.jpg',facts:[['LIST','HLADKÝ LIST S VLNITÝM OKRAJEM'],['PLOD','BUKVÍCE'],['LES','BUK ROSTE V LISTNATÝCH I SMÍŠENÝCH LESÍCH.']]},
+  {title:'BŘÍZA',image:'birch.jpg',facts:[['KŮRA','BÍLÁ KŮRA S TMAVÝMI MÍSTY'],['LIST','DROBNÝ LIST'],['POZORUJ','PODÍVEJ SE NA BARVU KMENE.']]},
+  {title:'SMRK',image:'spruce.jpg',facts:[['JEHLIČÍ','KRÁTKÉ A PICHLAVÉ'],['ŠIŠKY','VISÍ DOLŮ'],['LES','SMRK JE JEHLIČNATÝ STROM.']]},
+  {title:'POZNÁVÁME STROMY',text:'KTERÝ STROM MÁ ŽALUDY?',choices:[['oak.jpg','DUB',true],['beech.jpg','BUK',false],['birch.jpg','BŘÍZA',false],['spruce.jpg','SMRK',false]]},
+  {title:'VEVERKA',image:'squirrel.jpg',facts:[['ČÍM SE ŽIVÍ','SEMÍNKY, OŘECHY A HOUBAMI.'],['KDE ŽIJE','NA STROMECH V LESE, PARKU I ZAHRADĚ.'],['ZIMA','SCHOVÁVÁ SI POTRAVU. ZIMNÍ SPÁNEK NEMÁ.']]},
+  {title:'JEŽEK',image:'hedgehog.jpg',facts:[['ČÍM SE ŽIVÍ','HMYZEM, ŽÍŽALAMI A PLŽI.'],['KDE ŽIJE','V KŘOVINÁCH, ZAHRADÁCH A NA OKRAJI LESA.'],['ZIMA','V SUCHÉM ÚKRYTU PŘEZIMUJE ZIMNÍM SPÁNKEM.']]},
+  {title:'JELEN',image:'deer.jpg',facts:[['ČÍM SE ŽIVÍ','TRÁVOU, BYLINAMI, LISTY A VÝHONKY.'],['KDE ŽIJE','V LESE A NA LESNÍCH LOUKÁCH.'],['ZIMA','ZŮSTÁVÁ V LESE A HLEDÁ POTRAVU.']]},
+  {title:'SRNA',image:'roe.jpg',facts:[['ČÍM SE ŽIVÍ','BYLINAMI, TRÁVOU A MLADÝMI VÝHONKY.'],['KDE ŽIJE','V LESE I U POLÍ A LUK.'],['ZIMA','NA PODZIM JÍ ZHOUSTNE SRST.']]},
+  {title:'DIVOKÉ PRASE',image:'boar.jpg',facts:[['ČÍM SE ŽIVÍ','KOŘÍNKY, ŽALUDY, PLODY I HMYZEM.'],['KDE ŽIJE','V LESE A KŘOVINÁCH.'],['ZIMA','ZŮSTÁVÁ AKTIVNÍ. MÁ HUSTŠÍ SRST.']]},
+  {title:'LIŠKA',image:'fox.jpg',facts:[['ČÍM SE ŽIVÍ','MYŠMI, DROBNÝMI ZVÍŘATY A PLODY.'],['KDE ŽIJE','V LESE, NA POLÍCH I U LIDSKÝCH SÍDEL.'],['ZIMA','ZŮSTÁVÁ AKTIVNÍ A HLEDÁ POTRAVU.']]},
+  {title:'ZAJÍC',image:'hare.jpg',facts:[['ČÍM SE ŽIVÍ','BYLINAMI A TRÁVOU. V ZIMĚ I VĚTVIČKAMI.'],['KDE ŽIJE','NA LOUKÁCH, POLÍCH A JEJICH OKRAJÍCH.'],['ZIMA','ZŮSTÁVÁ VENKU A ODPOČÍVÁ V TRÁVĚ.']]},
+  {title:'KRÁLÍK',image:'rabbit.jpg',facts:[['ČÍM SE ŽIVÍ','TRÁVOU, BYLINAMI A LISTY. V ZIMĚ I KŮROU.'],['KDE ŽIJE','V NOŘE NA SUCHÉM MÍSTĚ.'],['ZIMA','UKRÝVÁ SE V NOŘE A VYCHÁZÍ ZA POTRAVOU.']]},
+  {title:'KDO SCHOVÁVÁ OŘÍŠKY?',text:'VYBER SPRÁVNÉ ZVÍŘE.',choices:[['squirrel.jpg','VEVERKA',true],['hedgehog.jpg','JEŽEK',false],['deer.jpg','JELEN',false],['boar.jpg','DIVOKÉ PRASE',false]]},
+  {title:'KDO PŘEZIMUJE ZIMNÍM SPÁNKEM?',text:'VYBER SPRÁVNÉ ZVÍŘE.',choices:[['hedgehog.jpg','JEŽEK',true],['fox.jpg','LIŠKA',false],['hare.jpg','ZAJÍC',false],['squirrel.jpg','VEVERKA',false]]},
+  {title:'KDO HLEDÁ KOŘÍNKY A ŽALUDY?',text:'VYBER SPRÁVNÉ ZVÍŘE.',choices:[['boar.jpg','DIVOKÉ PRASE',true],['rabbit.jpg','KRÁLÍK',false],['squirrel.jpg','VEVERKA',false],['roe.jpg','SRNA',false]]},
+  {title:'KDO ŽIJE V NOŘE?',text:'VYBER SPRÁVNÉ ZVÍŘE.',choices:[['rabbit.jpg','KRÁLÍK',true],['deer.jpg','JELEN',false],['fox.jpg','LIŠKA',false],['tit_1.jpg','SÝKORA',false]]},
+  {title:'STÁLÍ PTÁCI',text:'TITO PTÁCI U NÁS ZŮSTÁVAJÍ I V ZIMĚ.',gallery:[['tit_1.jpg','SÝKORA'],['tit_2.jpg','VRABEC'],['tit_3.jpg','KOS']]},
+  {title:'STĚHOVAVÍ PTÁCI',text:'TITO PTÁCI ODLÉTAJÍ DO TEPLÝCH KRAJIN.',gallery:[['swallow_1.jpg','VLAŠTOVKA'],['swallow_2.jpg','ČÁP'],['swallow_3.jpg','KUKAČKA']]},
+  {title:'PROČ NĚKTEŘÍ PTÁCI ODLÉTAJÍ?',image:'swallow_1.jpg',facts:[['V ZIMĚ','JE MÁLO HMYZU A POTRAVY.'],['PTÁCI','LETÍ TAM, KDE NAJDOU VÍCE POTRAVY.'],['NA JAŘE','SE VRACEJÍ ZPĚT.']]},
+  {title:'POMÁHÁME V ZIMĚ',text:'DO KRMÍTKA PATŘÍ SEMÍNKA A NESOLENÉ OŘECHY. CHLÉB A SLANÉ ZBYTKY PTÁKŮM NEDÁVÁME.',gallery:[['feeder.jpg','KRMÍTKO PRO PTÁKY'],['krmelec.jpg','KRMELec PRO ZVĚŘ'.toUpperCase()]]},
+  {title:'V LESE SE CHOVÁME OHLEDUPLNĚ',image:'forest_rules.jpg',facts:[['SPRÁVNĚ','JDEME PO CESTĚ. ODPADKY SI ODNESEME.'],['SPRÁVNĚ','JSME POTICHU A ZVÍŘATA NEHONÍME.'],['NESPRÁVNĚ','NEKŘIČÍME A NEROZDĚLÁVÁME OHEŇ.']]},
+  {title:'KTEŘÍ PTÁCI U NÁS ZŮSTÁVAJÍ?',text:'VYBER PTÁKY, KTEŘÍ ZIMUJÍ U NÁS.',choices:[['tit_1.jpg','SÝKORA',true],['tit_2.jpg','VRABEC',true],['tit_3.jpg','KOS',true],['swallow_1.jpg','VLAŠTOVKA',false],['swallow_2.jpg','ČÁP',false],['swallow_3.jpg','KUKAČKA',false]]},
+  {title:'CO PATŘÍ DO KRMÍTKA?',text:'VYBER VHODNÉ KRMIVO.',choices:[[null,'SLUNEČNICOVÁ SEMÍNKA',true],[null,'NESOLENÉ OŘECHY',true],[null,'CHLÉB',false],[null,'SLANÉ ZBYTKY JÍDLA',false]]},
+  {title:'JAK SE CHOVÁME V LESE?',text:'VYBER SPRÁVNÉ CHOVÁNÍ.',choices:[[null,'JDU PO CESTĚ. ODPADKY SI ODNESEME.',true],[null,'KŘIČÍM A HONÍM ZVÍŘATA.',false],[null,'ROZDĚLÁM OHEŇ V LESE.',false]]},
+  {title:'VÝBORNĚ!',tag:'CO UŽ VÍME?',image:'forest_autumn.jpg',text:'POZNÁM STROMY A ZVÍŘATA. VÍM, KTEŘÍ PTÁCI ODLÉTAJÍ. VÍM, JAK SE CHOVAT V LESE.',cover:true}
  ];
- s+=natureSection('LESNÍ ZVÍŘATA',animals.map(a=>natureCard(a[0],a[1],a[2])));
- s+=natureSection('PTÁCI, KTEŘÍ U NÁS ZŮSTÁVAJÍ',[
-  natureCard('tit_1.jpg','SÝKORA','ZŮSTÁVÁ U NÁS. V ZIMĚ HLEDÁ SEMÍNKA A DROBNÝ HMYZ.'),
-  natureCard('tit_2.jpg','VRABEC','ZŮSTÁVÁ U NÁS. ZOBE SEMÍNKA A ČASTO ŽIJE BLÍZKO LIDÍ.'),
-  natureCard('tit_3.jpg','KOS','ZŮSTÁVÁ U NÁS. HLEDÁ PLODY A DROBNOU POTRAVU.')
- ]);
- s+=natureSection('PTÁCI, KTEŘÍ ODLÉTAJÍ',[
-  natureCard('swallow_1.jpg','VLAŠTOVKA','ODLÉTÁ DO TEPLÝCH KRAJIN. ŽIVÍ SE LÉTAJÍCÍM HMYZEM.'),
-  natureCard('swallow_2.jpg','ČÁP','ODLÉTÁ DO TEPLÝCH KRAJIN. HLEDÁ HMYZ A DROBNÁ ZVÍŘATA.'),
-  natureCard('swallow_3.jpg','KUKAČKA','ODLÉTÁ DO TEPLÝCH KRAJIN. ŽIVÍ SE HMYZEM A HOUSENKAMI.')
- ]);
- s+=natureSection('V ZIMĚ POMÁHÁME',[
-  natureCard('feeder.jpg','KRMÍTKO PRO PTÁKY','DO KRMÍTKA PATŘÍ SLUNEČNICOVÁ SEMÍNKA, PROSO, OVES A NESOLENÉ OŘECHY. CHLÉB A SLANÉ ZBYTKY PTÁKŮM NEDÁVÁME.'),
-  natureCard('krmelec.jpg','KRMELEC PRO ZVĚŘ','JÍDLO DO KRMELCE NOSÍ LESNÍK NEBO MYSLIVEC. ZVÍŘATA NEHONÍME A V LESE JSME POTICHU.'),
-  natureCard('forest_rules.jpg','OHLEDUPLNĚ V LESE','JDEME PO CESTĚ. ODPADKY SI ODNESEME. NEKŘIČÍME, NEHONÍME ZVÍŘATA A NEROZDĚLÁVÁME OHEŇ.')
- ]);
- s+=`<div class="nature-note">STROMY DÁVAJÍ ZVÍŘATŮM ÚKRYT A POTRAVU. ČISTÝ LES JE DOMOVEM PRO MNOHO ŽIVOČICHŮ.</div>`;
- let t=`<div class="task"><h2>HRAJEME SI S PŘÍRODOU</h2><p>VYBER SPRÁVNÝ OBRÁZEK NEBO ODPOVĚĎ.</p></div>`;
- t+=natureQuestion('JAKÉ JE POČASÍ?','UKAŽ OBRÁZEK MLHY.',[
-  natureChoice('weather_sun.jpg','SLUNCE',false),natureChoice('weather_rain.jpg','DÉŠŤ',false),natureChoice('weather_wind.jpg','VÍTR',false),natureChoice('weather_fog.jpg','MLHA',true)
- ]);
- t+=natureQuestion('KTERÝ STROM MÁ ŽALUDY?','KLEPNI NA SPRÁVNÝ OBRÁZEK.',[
-  natureChoice('oak.jpg','DUB',true),natureChoice('beech.jpg','BUK',false),natureChoice('birch.jpg','BŘÍZA',false),natureChoice('spruce.jpg','SMRK',false)
- ]);
- t+=natureQuestion('KDO SI SCHOVÁVÁ OŘÍŠKY?','VYBER ZVÍŘE.',[
-  natureChoice('squirrel.jpg','VEVERKA',true),natureChoice('hedgehog.jpg','JEŽEK',false),natureChoice('deer.jpg','JELEN',false),natureChoice('boar.jpg','DIVOKÉ PRASE',false)
- ]);
- t+=natureQuestion('KDO PŘEZIMUJE ZIMNÍM SPÁNKEM?','VYBER ZVÍŘE.',[
-  natureChoice('hedgehog.jpg','JEŽEK',true),natureChoice('fox.jpg','LIŠKA',false),natureChoice('hare.jpg','ZAJÍC',false),natureChoice('squirrel.jpg','VEVERKA',false)
- ]);
- t+=natureQuestion('KTEŘÍ PTÁCI U NÁS ZŮSTÁVAJÍ?','V ZIMĚ HLEDAJÍ SEMÍNKA A PLODY.',[
-  natureChoice('tit_1.jpg','SÝKORA',true),natureChoice('tit_2.jpg','VRABEC',true),natureChoice('tit_3.jpg','KOS',true),natureChoice('swallow_1.jpg','VLAŠTOVKA',false),natureChoice('swallow_2.jpg','ČÁP',false),natureChoice('swallow_3.jpg','KUKAČKA',false)
- ]);
- t+=natureQuestion('PROČ NĚKTEŘÍ PTÁCI ODLÉTAJÍ?','VYBER SPRÁVNOU ODPOVĚĎ.',[
-  natureChoice(null,'V ZIMĚ JE MÁLO HMYZU A POTRAVY.',true),natureChoice(null,'CHTĚJÍ SI HRÁT.',false),natureChoice(null,'NEUMĚJÍ LÉTAT.',false)
- ]);
- t+=natureQuestion('CO PATŘÍ DO KRMÍTKA?','VYBER VHODNÉ KRMIVO.',[
-  natureChoice(null,'SLUNEČNICOVÁ SEMÍNKA A NESOLENÉ OŘECHY',true),natureChoice(null,'CHLÉB',false),natureChoice(null,'SLANÉ ZBYTKY JÍDLA',false)
- ]);
- t+=natureQuestion('JAK SE CHOVÁME V LESE?','VYBER SPRÁVNÉ CHOVÁNÍ.',[
-  natureChoice(null,'JDU PO CESTĚ A ODPADKY SI ODNESEME.',true),natureChoice(null,'KŘIČÍM A HONÍM ZVÍŘATA.',false),natureChoice(null,'ROZDĚLÁM OHEŇ V LESE.',false)
- ]);
- app.innerHTML=shell(c,s,t);wire(c)
+ let current=0;
+ function renderSlide(){
+  const x=slides[current];
+  let visual='';
+  if(x.gallery){visual=`<div class="nature-slide-gallery nsg-${x.gallery.length}">${x.gallery.map(([f,l])=>`<figure>${photo(f,l)}<figcaption>${l}</figcaption></figure>`).join('')}</div>`}
+  else if(x.choices){visual=`<div class="nature-slide-choices">${x.choices.map(([f,l,ok])=>`<button class="nature-option" data-ok="${ok?'1':'0'}">${f?photo(f,l):''}<span>${l}</span></button>`).join('')}</div><p class="nature-feedback" aria-live="polite"></p>`}
+  else if(x.image){visual=`<div class="nature-slide-layout"><div class="nature-slide-copy">${x.text?`<p class="nature-slide-text">${x.text}</p>`:''}${x.facts?`<div class="nature-facts">${x.facts.map(([k,v])=>`<div><strong>${k}</strong><span>${v}</span></div>`).join('')}</div>`:''}</div><div class="nature-slide-photo">${photo(x.image,x.title)}</div></div>`}
+  let lead=(x.gallery||x.choices)&&x.text?`<p class="nature-slide-text">${x.text}</p>`:'';
+  let intro=x.cover?`<div class="nature-cover"><div>${x.tag?`<p class="nature-tag">${x.tag}</p>`:''}<h1>${x.title}</h1><p>${x.text}</p></div>${photo(x.image,x.title)}</div>`:`<h1 class="nature-slide-title">${x.title}</h1>${lead}${x.text&&!x.image&&!x.gallery&&!x.choices?`<p class="nature-slide-text">${x.text}</p>`:''}${visual}`;
+  document.querySelector('#app').innerHTML=`<section class="nature-deck"><div class="nature-progress"><span>SNÍMEK ${current+1} Z ${slides.length}</span><div><i style="width:${((current+1)/slides.length)*100}%"></i></div></div><article class="nature-slide">${intro}</article><div class="nature-controls"><button class="nature-nav" id="natureHome">ZPĚT KE KAPITOLÁM</button><button class="nature-nav" id="naturePrev" ${current===0?'disabled':''}>← PŘEDCHOZÍ</button><button class="nature-nav nature-next" id="natureNext" ${current===slides.length-1?'disabled':''}>DALŠÍ →</button></div></section>`;
+  document.querySelector('#natureHome').onclick=renderHome;
+  document.querySelector('#naturePrev').onclick=()=>{if(current>0){current--;renderSlide();scrollTo(0,0)}};
+  document.querySelector('#natureNext').onclick=()=>{if(current<slides.length-1){current++;renderSlide();scrollTo(0,0)}};
+  document.querySelectorAll('.nature-option').forEach(b=>b.onclick=()=>{const fb=document.querySelector('.nature-feedback');const ok=b.dataset.ok==='1';b.classList.add(ok?'nature-correct':'nature-wrong');fb.textContent=ok?'SPRÁVNĚ!':'ZKUS TO JEŠTĚ JEDNOU.';fb.classList.toggle('is-correct',ok)});
+ }
+ renderSlide();
 }
 
 renderHome();
